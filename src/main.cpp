@@ -9,7 +9,7 @@
 #define POLL_INTERVAL 1000
 #define SERIAL_BAUD_RATE 115200
 
-AnalogMux as = AnalogMux(S1, S2, S3, AIN);
+AnalogMux as = AnalogMux(AIN, S1, S2, S3);
 uint8_t activeChannels[]{0, 1, 2, 3, 4, 5, 6, 7};
 
 void setup() {
