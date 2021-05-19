@@ -11,7 +11,11 @@
 #ifndef _ANALOG_SELECTOR_H_
 #define _ANALOG_SELECTOR_H_
 
-#include "Arduino.h"
+#ifdef UNIT_TEST
+  #include "ArduinoFake.h"
+#else
+  #include "Arduino.h"
+#endif
 
 /**
  * @brief Main AnalogMux class

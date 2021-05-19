@@ -1,0 +1,7 @@
+# Syntax Coloring Map For AnalogMux
+
+# Datatypes (KEYWORD1)
+AnalogMux    KEYWORD1
+
+# Methods and Functions (KEYWORD2)
+readChannel KEYWORD2

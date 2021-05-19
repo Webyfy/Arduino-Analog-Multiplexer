@@ -57,5 +57,6 @@ int AnalogMux::readChannel(uint8_t channel)
         digitalWrite(_selectPins[i], channel % 2);
         channel /= 2;
     }
+    
     return analogRead(_ain);
 }
