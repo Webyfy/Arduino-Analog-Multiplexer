@@ -57,6 +57,51 @@ int AnalogMux::readChannel(uint8_t channel)
         digitalWrite(_selectPins[i], channel % 2);
         channel /= 2;
     }
-    
+
     return analogRead(_ain);
 }
+
+// Methods for unit testing
+#ifdef UNIT_TEST
+/**
+ * @brief Gets the analog Input Pin
+ * 
+ * @return analog input pin
+ */
+int AnalogMux::uint8_t signalPin(void)
+{
+    return _ain;
+}
+
+/**
+   * @brief Get channel count
+   * 
+   * Gets the maximum number of channels possible with the 
+   * given select pins
+   * 
+   * @return maximum channel count
+   */
+uint8_t channelCount(void)
+{
+    return 1 << _selectCount;
+}
+
+/**
+   * @brief Get currently selected channel
+   * 
+   * @return currently selected channel number
+   */
+uint8_t currentChannel(void)
+{
+}
+
+/**
+   * @brief returns maximum number of select pins possible
+   * 
+   * @return length of select pin array
+   */
+uint8_t maxSelectPins(void)
+{
+    return uint8_t(sizeof(_selectPins)/sizeof(_selectPins[0]));
+}
+#endif
