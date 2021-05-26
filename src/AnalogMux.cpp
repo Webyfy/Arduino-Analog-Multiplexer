@@ -13,34 +13,41 @@
 #include "AnalogMux.h"
 
 /**
- * @brief Constructor for 8 channel (3 select pins) analog multiplexer
- * 
- * @param ain Analog pin for reading output signal from the multiplexer
- * @param s1 Select pin 1
- * @param s2 Select pin 2
- * @param s3 Select pin 3
+ * @brief Default Constructor
  */
-AnalogMux::AnalogMux(uint8_t ain, uint8_t s1, uint8_t s2, uint8_t s3) : _selectPins{s1, s2, s3}, _ain{ain}, _selectCount{3}
+AnalogMux::AnalogMux() : _selectCount{0}
 {
-    pinMode(s1, OUTPUT);
-    pinMode(s2, OUTPUT);
-    pinMode(s3, OUTPUT);
 }
 
 /**
- * @brief Constructor for 16 channel (4 select pins) analog multiplexer
+ * @brief Destroy the Analog Mux:: Analog Mux object
  * 
- * @param ain Analog pin for reading output signal from the multiplexer
- * @param s1 Select pin 1
- * @param s2 Select pin 2
- * @param s3 Select pin 3
- * @param s4 Select pin 4
  */
-AnalogMux::AnalogMux(uint8_t ain, uint8_t s1, uint8_t s2, uint8_t s3, uint8_t s4) : AnalogMux(ain, s1, s2, s3)
+AnalogMux::~AnalogMux()
 {
-    pinMode(s4, OUTPUT);
-    _selectPins[3] = s4;
-    _selectCount = 4;
+    if (_selectPins != nullptr)
+    {
+        delete[] _selectPins;
+    }
+}
+
+/**
+ * @brief Setup analog input pins and select pins
+ * 
+ * @param ain Analog Pin for reading output signal from the multiplexer
+ * @param selectCount count of select pins
+ * @param selectPins array of select pins
+ */
+void AnalogMux::begin(uint8_t ain, uint8_t selectCount, uint8_t selectPins[])
+{
+    _ain = ain;
+    _selectCount = selectCount;
+    _selectPins = new uint8_t[selectCount];
+    for (int i = 0; i < selectCount; i++)
+    {
+        _selectPins[i] = selectPins[i];
+        pinMode(selectPins[i], OUTPUT);
+    }
 }
 
 /**
@@ -68,9 +75,19 @@ int AnalogMux::readChannel(uint8_t channel)
  * 
  * @return analog input pin
  */
-int AnalogMux::uint8_t signalPin(void)
+uint8_t AnalogMux::signalPin(void)
 {
     return _ain;
+}
+
+/**
+ * @brief get the number of select pins
+ * 
+ * @return the number of select pins
+ */
+uint8_t AnalogMux::selectCount(void)
+{
+    return _selectCount;
 }
 
 /**
@@ -81,7 +98,7 @@ int AnalogMux::uint8_t signalPin(void)
    * 
    * @return maximum channel count
    */
-uint8_t channelCount(void)
+uint8_t AnalogMux::channelCount(void)
 {
     return 1 << _selectCount;
 }
@@ -91,17 +108,14 @@ uint8_t channelCount(void)
    * 
    * @return currently selected channel number
    */
-uint8_t currentChannel(void)
+uint8_t AnalogMux::currentChannel(void)
 {
-}
+    uint8_t channel = 0;
+    for (uint8_t i = 0; i < _selectCount; i++)
+    {
+        channel += (1 << i) * digitalRead(_selectPins[i]);
+    }
 
-/**
-   * @brief returns maximum number of select pins possible
-   * 
-   * @return length of select pin array
-   */
-uint8_t maxSelectPins(void)
-{
-    return uint8_t(sizeof(_selectPins)/sizeof(_selectPins[0]));
+    return channel;
 }
 #endif

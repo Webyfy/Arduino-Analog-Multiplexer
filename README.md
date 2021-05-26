@@ -11,4 +11,4 @@ Arduino Library for Analog Multiplexers.
 ## Roadmap
 - [ ] Unit Test
 - [ ] Enable Pin Support
-- [ ] Dynamic Pin Count
+- [x] Dynamic Pin Count

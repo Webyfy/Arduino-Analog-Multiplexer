@@ -24,19 +24,20 @@
 class AnalogMux
 {
 public:
-  AnalogMux(uint8_t ain, uint8_t s1, uint8_t s2, uint8_t s3);
-  AnalogMux(uint8_t ain, uint8_t s1, uint8_t s2, uint8_t s3, uint8_t s4);
+  AnalogMux();
+  ~AnalogMux();
+  void begin(uint8_t ain, uint8_t selectCount, uint8_t selectPins[]);
   int readChannel(uint8_t channel);
 #ifdef UNIT_TEST
   uint8_t signalPin(void);
+  uint8_t selectCount(void);
   uint8_t channelCount(void);
   uint8_t currentChannel(void);
-  uint8_t maxSelectPins(void);
 #endif
 private:
   uint8_t _ain;
-  uint8_t _selectPins[4];
-  int8_t _selectCount;
+  uint8_t *_selectPins;
+  uint8_t _selectCount;
 };
 
 #endif // _ANALOG_SELECTOR_H_
