@@ -26,6 +26,7 @@ class AnalogMux
 public:
   AnalogMux();
   ~AnalogMux();
+  // [DISCUSS] should i use `std::initializer_list` instead??
   void begin(uint8_t ain, uint8_t selectCount, uint8_t selectPins[]);
   int readChannel(uint8_t channel);
 #ifdef UNIT_TEST

@@ -10,7 +10,7 @@
 #define POLL_INTERVAL 1000
 #define SERIAL_BAUD_RATE 115200
 
-AnalogMux as = AnalogMux(AIN, S1, S2, S3);
+AnalogMux am;
 uint8_t activeChannels[]{0, 1, 2, 3, 4, 5, 6, 7};
 
 float mapFloat(float value, float fromLow, float fromHigh, float toLow, float toHigh) {
@@ -18,6 +18,8 @@ float mapFloat(float value, float fromLow, float fromHigh, float toLow, float to
 }
 
 void setup() {
+  uint8_t selectPins[]{S1, S2, S3};
+  am.begin(AIN, 3, selectPins);
   Serial.begin(SERIAL_BAUD_RATE);
 }
 
@@ -26,7 +28,7 @@ void loop() {
   {
     Serial.print(activeChannels[i]);
     Serial.print(F(" => "));
-    int value = as.readChannel(activeChannels[i]);
+    int value = am.readChannel(activeChannels[i]);
     Serial.print(mapFloat(value, 0, 1023, 0, AREF));
     Serial.print(F("v; \t"));
   }
