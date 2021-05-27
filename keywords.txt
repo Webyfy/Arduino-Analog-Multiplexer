@@ -5,3 +5,5 @@ AnalogMux    KEYWORD1
 
 # Methods and Functions (KEYWORD2)
 readChannel KEYWORD2
+setEnable   KEYWORD2
+begin       KEYWORD2
