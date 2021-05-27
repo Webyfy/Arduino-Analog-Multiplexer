@@ -95,8 +95,8 @@ void test_Enable(void)
 
   int8_t selectPins[]{8, 9, 10};
   int8_t enablePin = 12;
-  int8_t len = sizeof(selectPins) / sizeof(selectPins[0]);
-  mux.begin(A0, len, selectPins, enablePin);
+  int8_t selectCount = sizeof(selectPins) / sizeof(selectPins[0]);
+  mux.begin(A0, selectCount, selectPins, enablePin);
 
   TEST_ASSERT_EQUAL(enablePin, mux.getEnablePin());
   Verify(Method(ArduinoFake(), pinMode).Using(enablePin, OUTPUT)).Once();

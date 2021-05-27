@@ -1,6 +1,42 @@
 # AnalogMux
 Arduino Library for Analog Multiplexers.
 
+## Usage
+
+Always initialize library instance using `begin` before using it.
+
+### Create Library Instance
+```cpp
+AnalogMux mux;
+```
+
+### Initialization 
+#### Without Enable
+```cpp
+  int8_t selectPins[]{8, 9, 10};
+  int8_t selectCount = 3;
+  mux.begin(A0, selectCount, selectPins);
+```
+
+#### With Enable
+```cpp
+  int8_t selectPins[]{8, 9, 10};
+  int8_t selectCount = 3;
+
+  int8_t enablePin = 12;
+  mux.begin(A0, selectCount, selectPins, enablePin);
+```
+
+### Read channel
+```cpp
+    int value = mux.readChannel(3);
+```
+
+### Set enable pin 
+```cpp
+    mux.setEnable(LOW);
+```
+
 ## Testing
 
 Project building and testing are based on [PlatformIO](https://platformio.org/).
