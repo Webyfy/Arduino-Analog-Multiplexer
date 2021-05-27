@@ -9,6 +9,6 @@ Arduino Library for Analog Multiplexers.
 * [arduino-ad-mux-lib](https://github.com/stechio/arduino-ad-mux-lib)
 
 ## Roadmap
-- [ ] Unit Test
-- [ ] Enable Pin Support
+- [ ] Unit Testing
+- [x] Enable Pin Support
 - [x] Dynamic Pin Count

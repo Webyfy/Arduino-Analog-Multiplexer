@@ -27,18 +27,21 @@ public:
   AnalogMux();
   ~AnalogMux();
   // [DISCUSS] should i use `std::initializer_list` instead??
-  void begin(uint8_t ain, uint8_t selectCount, uint8_t selectPins[]);
-  int readChannel(uint8_t channel);
+  void begin(int8_t ain, int8_t selectCount, int8_t selectPins[], int8_t enablePin = -1);
+  int readChannel(int8_t channel);
+  bool setEnable(uint8_t value);
+
 #ifdef UNIT_TEST
-  uint8_t signalPin(void);
-  uint8_t selectCount(void);
-  uint8_t channelCount(void);
-  uint8_t currentChannel(void);
+  int8_t signalPin(void);
+  int8_t selectCount(void);
+  int8_t channelCount(void);
+  int8_t currentChannel(void);
 #endif
 private:
-  uint8_t _ain;
-  uint8_t *_selectPins;
-  uint8_t _selectCount;
+  int8_t _ain;
+  int8_t *_selectPins;
+  int8_t _selectCount;
+  int8_t _enablePin;
 };
 
 #endif // _ANALOG_SELECTOR_H_

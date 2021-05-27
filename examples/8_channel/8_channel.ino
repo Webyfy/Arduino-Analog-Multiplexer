@@ -11,20 +11,20 @@
 #define SERIAL_BAUD_RATE 115200
 
 AnalogMux am;
-uint8_t activeChannels[]{0, 1, 2, 3, 4, 5, 6, 7};
+int8_t activeChannels[]{0, 1, 2, 3, 4, 5, 6, 7};
 
 float mapFloat(float value, float fromLow, float fromHigh, float toLow, float toHigh) {
   return (value - fromLow) * (toHigh - toLow) / (fromHigh - fromLow) + toLow; 
 }
 
 void setup() {
-  uint8_t selectPins[]{S1, S2, S3};
+  int8_t selectPins[]{S1, S2, S3};
   am.begin(AIN, 3, selectPins);
   Serial.begin(SERIAL_BAUD_RATE);
 }
 
 void loop() {
-  for (uint8_t i = 0; i < (sizeof(activeChannels)/sizeof(activeChannels[0])); i++)
+  for (int8_t i = 0; i < (sizeof(activeChannels)/sizeof(activeChannels[0])); i++)
   {
     Serial.print(activeChannels[i]);
     Serial.print(F(" => "));
