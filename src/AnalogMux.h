@@ -36,6 +36,7 @@ public:
   int8_t selectCount(void);
   int8_t channelCount(void);
   int8_t currentChannel(void);
+  int8_t getEnablePin(void);
 #endif
 private:
   int8_t _ain;

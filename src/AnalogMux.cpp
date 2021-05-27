@@ -84,7 +84,8 @@ int AnalogMux::readChannel(int8_t channel)
  */
 bool AnalogMux::setEnable(uint8_t value)
 {
-    if(_enablePin < 0){
+    if (_enablePin < 0)
+    {
         return false;
     }
     digitalWrite(_enablePin, value);
@@ -139,6 +140,16 @@ int8_t AnalogMux::currentChannel(void)
     }
 
     return channel;
+}
+
+/**
+ * @brief Get the Enable Pin 
+ * 
+ * @return enable pin 
+ */
+int8_t AnalogMux::getEnablePin(void)
+{
+    return _enablePin;
 }
 
 #endif
