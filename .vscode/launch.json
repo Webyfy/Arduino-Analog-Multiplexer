@@ -12,7 +12,7 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug",
-            "executable": "/home/webyfyuser/Documents/PlatformIO/Projects/AnalogMux/.pio/build/native/program",
+            "executable": "/home/webyfyuser/Projects/git.reach-iot.com/embedded/AnalogMux/.pio/build/native/program",
             "projectEnvName": "native",
             "toolchainBinDir": "",
             "internalConsoleOptions": "openOnSessionStart",
@@ -25,7 +25,7 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug (skip Pre-Debug)",
-            "executable": "/home/webyfyuser/Documents/PlatformIO/Projects/AnalogMux/.pio/build/native/program",
+            "executable": "/home/webyfyuser/Projects/git.reach-iot.com/embedded/AnalogMux/.pio/build/native/program",
             "projectEnvName": "native",
             "toolchainBinDir": "",
             "internalConsoleOptions": "openOnSessionStart"
