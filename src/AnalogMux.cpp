@@ -37,10 +37,14 @@ AnalogMux::~AnalogMux()
  * @param ain Analog Pin for reading output signal from the multiplexer
  * @param selectCount count of select pins
  * @param selectPins array of select pins
+ * @param switchingDelay time delay for channel switching, defaults to 0
+ *        It is the time required to propagate signal from input to output after a new 
+ *        channel selection. Normally, it is in ns, so `1` should suffice
  * @param enablePin  enable pin # (optional, pass -1 if unused).
  */
 
-void AnalogMux::begin(int8_t ain, int8_t selectCount, int8_t selectPins[], int8_t enablePin)
+void AnalogMux::begin(int8_t ain, int8_t selectCount, int8_t selectPins[],
+                      uint8_t switchingDelay, int8_t enablePin)
 {
     _ain = ain;
     _selectCount = selectCount;
@@ -50,6 +54,7 @@ void AnalogMux::begin(int8_t ain, int8_t selectCount, int8_t selectPins[], int8_
         _selectPins[i] = selectPins[i];
         pinMode(selectPins[i], OUTPUT);
     }
+    _switchingDelay = switchingDelay;
     if (enablePin >= 0)
     {
         _enablePin = enablePin;
@@ -62,6 +67,7 @@ void AnalogMux::begin(int8_t ain, int8_t selectCount, int8_t selectPins[], int8_
  * 
  * @param channel which channel to read
  * @return analog reading of the channel
+ * @note this methods calls delay(for `switchingDelay` ms)
  */
 int AnalogMux::readChannel(int8_t channel)
 {
@@ -71,6 +77,7 @@ int AnalogMux::readChannel(int8_t channel)
         digitalWrite(_selectPins[i], channel % 2);
         channel /= 2;
     }
+    delay(_switchingDelay);
 
     return analogRead(_ain);
 }
