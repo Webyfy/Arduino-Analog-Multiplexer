@@ -36,4 +36,5 @@ void loop() {
     Serial.print(F("v; \t"));
   }
   Serial.println();
+  delay(POLL_INTERVAL);
 }
