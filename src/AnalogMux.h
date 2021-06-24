@@ -31,6 +31,8 @@ public:
              uint8_t switchingDelay = 0, int8_t enablePin = -1);
   int readChannel(int8_t channel);
   bool setEnable(uint8_t value);
+  void selectChannel(int8_t channel);
+  int read();
 
 #ifdef UNIT_TEST
   int8_t signalPin(void);

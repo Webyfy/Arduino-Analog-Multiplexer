@@ -63,6 +63,29 @@ void AnalogMux::begin(int8_t ain, int8_t selectCount, int8_t selectPins[],
 }
 
 /**
+ * @brief selects specified channel in the mux
+ * 
+ * @param channel channel to be selected (base 0)
+ */
+void AnalogMux::selectChannel(int8_t channel)
+{
+    for (int8_t i = 0; i < _selectCount; i++)
+    {
+        digitalWrite(_selectPins[i], channel % 2);
+        channel /= 2;
+    }
+}
+
+/**
+ * @brief read value from current channel
+ * 
+ * @return analog reading of currently selected channel
+ */
+int AnalogMux::read(){
+    return analogRead(_ain);
+}
+
+/**
  * @brief Get analog reading from a channel
  * 
  * @param channel which channel to read
@@ -71,15 +94,10 @@ void AnalogMux::begin(int8_t ain, int8_t selectCount, int8_t selectPins[],
  */
 int AnalogMux::readChannel(int8_t channel)
 {
-    // select channel
-    for (int8_t i = 0; i < _selectCount; i++)
-    {
-        digitalWrite(_selectPins[i], channel % 2);
-        channel /= 2;
-    }
+    selectChannel(channel);
     delay(_switchingDelay);
 
-    return analogRead(_ain);
+    return read();
 }
 
 /**
