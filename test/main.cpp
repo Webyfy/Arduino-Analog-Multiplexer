@@ -60,17 +60,20 @@ void test_Mux_read(void)
   When(Method(ArduinoFake(), pinMode)).AlwaysReturn();
   When(Method(ArduinoFake(), digitalWrite)).AlwaysReturn();
   When(Method(ArduinoFake(), analogRead)).AlwaysReturn();
+  When(Method(ArduinoFake(), delay)).AlwaysReturn();
 
   // s1 = 8, s2 = 9, s3 = 10
   int8_t ain{A0}, selectPins[]{8, 9, 10}, selectCount{3};
+  uint8_t switchingDelay = 1;
   AnalogMux mux;
-  mux.begin(ain, selectCount,selectPins);
+  mux.begin(ain, selectCount,selectPins, switchingDelay);
 
   mux.readChannel(3); // (s3 - 0), (s2 - 1), (s1 - 0)
 
   Verify(Method(ArduinoFake(), digitalWrite).Using(selectPins[2], LOW)).Once();
   Verify(Method(ArduinoFake(), digitalWrite).Using(selectPins[1], HIGH)).Once();
   Verify(Method(ArduinoFake(), digitalWrite).Using(selectPins[0], HIGH)).Once();
+  Verify(Method(ArduinoFake(), delay).Using(switchingDelay)).Once();
   Verify(Method(ArduinoFake(), analogRead).Using(A0)).Once();
 
 }
@@ -94,9 +97,10 @@ void test_Enable(void)
   Verify(Method(ArduinoFake(), digitalWrite).Using(-1, _)).Never();
 
   int8_t selectPins[]{8, 9, 10};
+  uint8_t switchingDelay = 0;
   int8_t enablePin = 12;
   int8_t selectCount = sizeof(selectPins) / sizeof(selectPins[0]);
-  mux.begin(A0, selectCount, selectPins, enablePin);
+  mux.begin(A0, selectCount, selectPins, switchingDelay, enablePin);
 
   TEST_ASSERT_EQUAL(enablePin, mux.getEnablePin());
   Verify(Method(ArduinoFake(), pinMode).Using(enablePin, OUTPUT)).Once();
