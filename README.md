@@ -75,4 +75,4 @@ pio test
 - [x] Unit Testing
 - [x] Enable Pin Support
 - [x] Dynamic Pin Count
-- [ ] Automation
+- [ ] Automate Testing
